@@ -10,32 +10,40 @@ const movieDB = {
     ]
 };
 
-const adBlocks = document.querySelectorAll('.promo__adv > img'),
-    genreTitle = document.querySelector('.promo__genre'),
-    bgPromo = document.querySelector('.promo__bg'),
-    interactiveList = document.querySelectorAll('.promo__interactive-item');
+const adBlocks = document.querySelectorAll('.promo__adv img'),
+    poster = document.querySelector('.promo__bg'),
+    genreTitle = poster.querySelector('.promo__genre'),
+    movieList = document.querySelector('.promo__interactive-list');
 
 
-    delAdBlock();
-    changeGenre('драма');
-    changeBg();
+delAdBlock();
+changeGenre('драма');
+changeBg();
 
 
-function delAdBlock(){
+function delAdBlock() {
     adBlocks.forEach(item => {
         item.remove();
     });
 }
 
-function changeGenre(genre){
+function changeGenre(genre) {
     genreTitle.textContent = `${genre}`;
 }
 
-function changeBg(){
-    bgPromo.style.cssText = `background: url(../img/bg.jpg) center center/cover no-repeat;`;
+function changeBg() {
+    poster.style.backgroundImage = `url("./img/bg.jpg")`;
 }
 
 // list movies output
-movieDB.movies.forEach((item, i) => {
-    interactiveList[i].textContent = `${i + 1}: ${item}`;
+movieList.innerHTML = "";
+
+movieDB.movies.sort();
+
+movieDB.movies.forEach((film, i) => {
+    movieList.innerHTML += `
+    <li class="promo__interactive-item">${i + 1}: ${film}
+        <div class="delete"></div>
+    </li>
+    `;
 });
